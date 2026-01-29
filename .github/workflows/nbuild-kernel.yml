@@ -237,10 +237,6 @@ jobs:
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
         bash $GITHUB_WORKSPACE/scripts/patch/kali-nethunter-kernel.sh
         bash $GITHUB_WORKSPACE/scripts/check-kernel-config/Kali-defconfig-checker.sh arch/${{ env.ARCH }}/configs/${{ env.KERNEL_CONFIG }} -w
-
-        echo ==========配置文件=============
-        echo arch/${{ env.ARCH }}/configs/${{ env.KERNEL_CONFIG }}
-        cat arch/${{ env.ARCH }}/configs/${{ env.KERNEL_CONFIG }}
         
     - name: Insert Makefile patch
       if: env.MAKEFILE_PATCH == 'true'
@@ -307,6 +303,11 @@ jobs:
         export PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-aosp/bin:$PATH
         export KBUILD_BUILD_HOST=Github-Action
         export KBUILD_BUILD_USER=$(echo ${{ github.actor }} | tr A-Z a-z)
+
+
+        echo ==========配置文件=============
+        cat arch/${{ env.ARCH }}/configs/${{ env.KERNEL_CONFIG }}
+        
         if [ ! -z ${{ env.KSU_EXPECTED_SIZE }} ] && [ ! -z ${{ env.KSU_EXPECTED_HASH }} ]; then
           export KSU_EXPECTED_SIZE=${{ env.KSU_EXPECTED_SIZE }}
           export KSU_EXPECTED_HASH=${{ env.KSU_EXPECTED_HASH }}
