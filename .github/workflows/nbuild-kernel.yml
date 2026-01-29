@@ -238,6 +238,10 @@ jobs:
         bash $GITHUB_WORKSPACE/scripts/patch/kali-nethunter-kernel.sh
         bash $GITHUB_WORKSPACE/scripts/check-kernel-config/Kali-defconfig-checker.sh arch/${{ env.ARCH }}/configs/${{ env.KERNEL_CONFIG }} -w
 
+        echo ==========配置文件=============
+        echo arch/${{ env.ARCH }}/configs/${{ env.KERNEL_CONFIG }}
+        cat arch/${{ env.ARCH }}/configs/${{ env.KERNEL_CONFIG }}
+        
     - name: Insert Makefile patch
       if: env.MAKEFILE_PATCH == 'true'
       run: |
