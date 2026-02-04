@@ -225,6 +225,15 @@ jobs:
         export LXC_PATCHES=$GITHUB_WORKSPACE/patches/lxc-docker
         bash $GITHUB_WORKSPACE/scripts/patch/lxc-docker.sh
 
+        if [ -f kernel/cgroup/cgroup.c ]; then
+            echo ==========================================cgroup.c
+            cat kernel/cgroup/cgroup.c
+        fi
+        if [ -f net/netfilter/xt_qtaguid.c ]; then
+            echo ===============================================xt_qtaguid
+            cat net/netfilter/xt_qtaguid.c
+        fi
+
     - name: Disable ANDROID_PARANOID_NETWORK
       if: env.ANDROID_PARANOID_NETWORK_OFF == 'true'
       run: |
@@ -243,6 +252,11 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
         patch -p1 < $GITHUB_WORKSPACE/patches/Makefile.patch
+
+        if [ -f kernel/Makefile ]; then
+            echo ==========================================Makefile
+            cat kernel/Makefile
+        fi
 
     - name: Run customize script
       if: env.CUSTOM_SCRIPT == 'true'
