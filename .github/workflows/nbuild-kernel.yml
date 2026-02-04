@@ -253,6 +253,10 @@ jobs:
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
         patch -p1 < $GITHUB_WORKSPACE/patches/Makefile.patch
 
+        if [ -f kernel/Makefile ]; then
+          echo ==========================================Makefile
+          cat kernel/Makefile
+        fi
     - name: Run customize script
       if: env.CUSTOM_SCRIPT == 'true'
       run: |
